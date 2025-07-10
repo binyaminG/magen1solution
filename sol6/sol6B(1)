@@ -1,0 +1,20 @@
+// ב.1. פעולה פנימית במחלקה: allGood
+/**
+ * הפעולה מחזירה true אם כל כלי הרכב שצולמו במצלמה לא עברו עבירת תנועה.
+ * (כלומר, עבור כל CarInfo ב-cars, הפעולה illegal() מחזירה false).
+ * אחרת הפעולה מחזירה false.
+ *
+ * @return true אם אף רכב לא עבר עבירה, false אחרת.
+ */
+public boolean allGood() {
+    if (this.cars == null || this.cars.length == 0) {
+        return true; // אם אין רכבים, אף אחד לא עבר עבירה
+    }
+
+    for (CarInfo car : this.cars) {
+        if (car.illegal()) { // שימוש בפעולה מסעיף א'
+            return false; // נמצא רכב אחד לפחות שעבר עבירה
+        }
+    }
+    return true; // כל הרכבים תקינים
+}
