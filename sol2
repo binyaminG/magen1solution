@@ -1,0 +1,84 @@
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int totalStrings = 0;
+        int stringsStartingWithVowel = 0;
+        String shortestString = "";
+        boolean firstString = true; // דגל לעקוב אחר המחרוזת הראשונה לצורך מציאת הקצרה ביותר
+
+        System.out.println("הכנס מחרוזות. הקלט יסתיים כאשר תוכנס מחרוזת המכילה לפחות חמש אותיות אנגליות גדולות (A-Z).");
+
+        while (true) {
+            System.out.print("הכנס מחרוזת: ");
+            String inputString = scanner.nextLine();
+
+            // בדיקת תנאי סיום הקלט: לפחות 5 אותיות אנגליות גדולות
+            int upperCaseCount = 0;
+            for (char c : inputString.toCharArray()) {
+                if (c >= 'A' && c <= 'Z') {
+                    upperCaseCount++;
+                }
+            }
+
+            if (upperCaseCount >= 5) {
+                System.out.println("המחרוזת \"" + inputString + "\" מכילה לפחות 5 אותיות גדולות. סיום הקלט.");
+                break; // יציאה מהלולאה
+            }
+
+            // --- ניתוח המחרוזת הנוכחית (למעט מחרוזת ההפסקה) ---
+
+            System.out.println("\n--- ניתוח עבור המחרוזת: \"" + inputString + "\" ---");
+
+            // א. האם המחרוזת מכילה את תת-המחרוזת "code" (תלוי רישיות)
+            if (inputString.contains("code")) {
+                System.out.println("  - המחרוזת מכילה את תת-המחרוזת \"code\".");
+            } else {
+                System.out.println("  - המחרוזת אינה מכילה את תת-המחרוזת \"code\".");
+            }
+
+            // ב. המחרוזות ללא התו הראשון והאחרון שלה
+            if (inputString.length() >= 2) {
+                System.out.println("  - המחרוזת ללא התו הראשון והאחרון: \"" + inputString.substring(1, inputString.length() - 1) + "\"");
+            } else {
+                System.out.println("  - המחרוזת קצרה מדי בכדי להסיר את התו הראשון והאחרון.");
+            }
+
+            // --- חישובים גלובליים (למעט מחרוזת ההפסקה) ---
+            totalStrings++; // סופר את המחרוזות שנקלטו (למעט זו שסיימה את הקלט)
+
+            // א. את המספר הכולל של המחרוזות המתחילות בתנועה (U, O, I, E, A, תלוי רישיות)
+            if (!inputString.isEmpty()) {
+                char firstChar = inputString.charAt(0);
+                if (firstChar == 'A' || firstChar == 'E' || firstChar == 'I' ||
+                        firstChar == 'O' || firstChar == 'U' ) {
+                    stringsStartingWithVowel++;
+                }
+            }
+
+            // ב. את המחרוזת הקצרה ביותר שנקלטה (למעט המחרוזת המפסיקה)
+            if (firstString) {
+                shortestString = inputString;
+                firstString = false;
+            } else {
+                if (inputString.length() < shortestString.length()) {
+                    shortestString = inputString;
+                }
+            }
+        }
+
+        System.out.println("\n--- סיכום כללי ---");
+        System.out.println("המספר הכולל של המחרוזות המתחילות בתנועה: " + stringsStartingWithVowel);
+
+        if (totalStrings > 0) { // לוודא שנקלטו מחרוזות כלשהן לפני מחרוזת ההפסקה
+            System.out.println("המחרוזת הקצרה ביותר שנקלטה (למעט מחרוזת ההפסקה): \"" + shortestString + "\"");
+        } else {
+            System.out.println("לא נקלטו מחרוזות לפני מחרוזת ההפסקה, לכן אין מחרוזת קצרה ביותר.");
+        }
+
+    }
+}
+
