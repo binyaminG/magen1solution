@@ -1,0 +1,36 @@
+/**
+ * ב. פונקציה המקבלת שני מערכים של מספרים שלמים arr1 ו-arr2 ומספר שלם targetSum.
+ * הפעולה תחזיר true עבור כל אינדקס i, סכום הזוגות של arr1[i-1] arr1[i]
+ * בתוך תת-המערך המכיל את כל האיברים שמיומין ל-arr1[i] זהה לסכום הזוגות של arr2[i]
+ * עם targetSum (באותו אופן).
+ * כלומר, יש להשוות את "כמות הזוגות" לכל איבר משני המערכים.
+ *
+ * @param arr1 המערך הראשון.
+ * @param arr2 המערך השני.
+ * @param targetSum סכום היעד.
+ * @return true אם כמות הזוגות שווה עבור כל אינדקס i בשני המערכים, אחרת false.
+ */
+public static boolean comparePairCounts(int[] arr1, int[] arr2, int targetSum) {
+    if (arr1 == null || arr2 == null || arr1.length != arr2.length || arr1.length == 0) {
+        // המערכים חייבים להיות בעלי אותו אורך ולא ריקים
+        return false;
+    }
+
+    for (int i = 0; i < arr1.length; i++) {
+        // עבור arr1, נצטרך ליצור תת-מערך מ-arr1[i] ועד סוף המערך
+        // (מהאיבר arr1[i] ומיומין לו)
+        int[] subArray1 = Arrays.copyOfRange(arr1, i, arr1.length - i);
+        int count1 = countPairsWithSum(subArray1, targetSum);
+
+        // עבור arr2, נצטרך ליצור תת-מערך מ-arr2[i] ועד סוף המערך
+        int[] subArray2 = Arrays.copyOfRange(arr2, i, arr2.length - i);
+        int count2 = countPairsWithSum(subArray2, targetSum);
+
+        // אם הספירות אינן שוות עבור אינדקס i הנוכחי, החזר false מיד
+        if (count1 != count2) {
+            return false;
+        }
+    }
+    // אם הגענו לכאן, כל הספירות היו שוות
+    return true;
+}
