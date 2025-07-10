@@ -1,1 +1,7 @@
-
+public BankAccount(int accountNumber, String accountHolderName) {
+    this.accountNumber = accountNumber;
+    this.accountHolderName = accountHolderName;
+    // כאשר אובייקט חדש נוצר:
+    this.balance = 0.0; // יאוזחל ל-0.0
+    this.isActive = true; // יוגדר ל-true
+}
