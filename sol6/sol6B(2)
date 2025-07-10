@@ -1,0 +1,24 @@
+// ב.2. פעולה חיצונית סטטית: camerasPublicTraffic
+/**
+ * הפעולה מקבלת מערך מטיפוס CameraInfo ומספרם של מצלמות שזיהו רכבים
+ * בתנועה ציבורית (כלומר, רכבים ש-privateCar = false).
+ * הפעולה תחזיר את כמות הערים שצולמו יותר מפעם אחת על ידי מצלמה כלשהי.
+ * הערה: ייתכן יותר ממצלמה אחת באותה העיר.
+ *
+ * @param cameras מערך של אובייקטי CameraInfo.
+ * @return כמות הערים שצולמו יותר מפעם אחת על ידי מצלמה כלשהי.
+ */
+public static int camerasPublicTraffic(CameraInfo[] cameras) {
+    if (cameras == null || cameras.length == 0) {
+        return 0;
+    }
+    int [] cityies= new int[100];
+    Arrays.fill(cityies,1);
+
+    for (int i = 0; i < cameras.length; i++) {
+        if (!cameras[i].allGood())
+            cityies[cameras[i].getCity()]=0;
+    }
+    int count=Arrays.stream(cityies).sum();
+    return count;
+}
