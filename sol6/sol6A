@@ -1,0 +1,10 @@
+// א. פעולה פנימית במחלקה: illegal (או isIllegal)
+/**
+ * הפעולה מחזירה true אם כלי הרכב עובר עבירת תנועה (כלומר, אם כלי הרכב הוא פרטי ו/או
+ * נסע מעל המהירות המותרת). אחרת הפעולה תחזיר false.
+ *
+ * @return true אם כלי הרכב עובר עבירת תנועה, false אחרת.
+ */
+public boolean illegal() {
+     return this.privateCar || (this.speed > this.maxSpeed);
+}
