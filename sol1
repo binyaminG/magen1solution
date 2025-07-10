@@ -1,0 +1,57 @@
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int twoDigitCount = 0;
+        int numbersGreaterThan5UnitDigitCount = 0;
+        int sumOfNumbersGreaterThan5UnitDigit = 0;
+
+        while (true) {
+            System.out.print("הכנס מספר שלם וחיובי: ");
+            int num = scanner.nextInt();
+
+            // ודא שהמספר חיובי
+            if (num <= 0) {
+                System.out.println("שגיאה: יש להזין מספר חיובי. אנא נסה שנית.");
+                continue;
+            }
+
+            // סעיף א': חישוב כמות המספרים הדו-ספרתיים
+            if (num >= 10 && num <= 99) {
+                twoDigitCount++;
+            }
+
+            // סעיף ב': חישוב ממוצע המספרים שספרת היחידות שלהם גדולה מ-5
+            int unitsDigit = num % 10;
+            if (unitsDigit > 5) {
+                numbersGreaterThan5UnitDigitCount++;
+                sumOfNumbersGreaterThan5UnitDigit += num;
+            }
+
+            // בדיקת תנאי סיום הקלט: סכום הספרות זוגי
+            int sumOfDigits = 0;
+            int temp=num;
+            while (temp>0){
+                sumOfDigits += temp%10;
+                temp/=10;
+            }
+            if (sumOfDigits % 2 == 0) {
+                System.out.println("סכום הספרות (" + sumOfDigits + ") זוגי. סיום הקלט.");
+                break; // יציאה מהלולאה
+            }
+        }
+
+        System.out.println("\n--- תוצאות ---");
+        System.out.println("כמות המספרים הדו-ספרתיים שנקלטו: " + twoDigitCount);
+
+        if (numbersGreaterThan5UnitDigitCount > 0) {
+            double average = (double) sumOfNumbersGreaterThan5UnitDigit / numbersGreaterThan5UnitDigitCount;
+            System.out.println("ממוצע כל המספרים שנקלטו אשר ספרת היחידות שלהם גדולה מ-5: " + String.format("%.2f", average));
+        } else {
+            System.out.println("לא נקלטו מספרים שספרת היחידות שלהם גדולה מ-5, לכן לא ניתן לחשב ממוצע.");
+        }
+    }
+}
