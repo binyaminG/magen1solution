@@ -1,0 +1,26 @@
+/**
+ * מוצאת את אובייקט BankAccount הפעיל (isActive = true) בעל היתרה הגבוהה ביותר מתוך מערך נתון.
+ * אם אין חשבונות פעילים, תחזיר null.
+ *
+ * @param accounts מערך של אובייקטי BankAccount.
+ * @return אובייקט BankAccount הפעיל בעל היתרה הגבוהה ביותר, או null אם אין חשבונות פעילים.
+ */
+public static BankAccount findRichestActiveAccount(BankAccount[] accounts) {
+    if (accounts == null || accounts.length == 0) {
+        return null; // המערך ריק או null
+    }
+
+    BankAccount richestActive = null;
+    double maxBalance = -1; // נשתמש בערך שלילי כלשהו כדי להבטיח שהיתרה הראשונה תיבחר
+
+    for (BankAccount account : accounts) {
+        // ודא שהאובייקט במערך אינו null ושהחשבון פעיל
+        if (account != null && account.isActive()) {
+            if (richestActive == null || account.getBalance() > maxBalance) {
+                richestActive = account;
+                maxBalance = account.getBalance();
+            }
+        }
+    }
+    return richestActive;
+}
